@@ -4,33 +4,50 @@ package com.max.demo.thread;
  * Created by hanzhongao on 2017/11/24.
  */
 public class MyThreadPrinter3 implements Runnable {
-    private Integer i = 126;
+    public static Integer i = 121;
+    private String name ;
 
     MyThreadPrinter3 () {
 
     }
-    MyThreadPrinter3 (Integer i) {
-        this.i = i;
+    MyThreadPrinter3 (String name) {
+        this.name = name;
     }
     @Override
     public void run() {
-        i=i +1;
-        System.out.print("a"+i);
-        synchronized (i) {
-            try {
-                System.out.print("b"+i);
-                Thread.sleep(100);
-                System.out.print("c"+i);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        Integer j =i ;
+
+        if("A".equals(name)) {
+            System.out.print("Aa"+j);
+            synchronized (i) {
+                try {
+                    System.out.print("Ab"+i);
+                    Thread.sleep(100);
+                    i = i+1;
+                    System.out.print("Ac"+i);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            System.out.print("Ba"+j);
+            synchronized (name) {
+                try {
+                    System.out.print("Bb"+i);
+                    Thread.sleep(100);
+                    i = i+1;
+                    System.out.print("Bc"+i);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
-        int i = 300;
-        new Thread(new MyThreadPrinter3(i)).start();
+        Integer i = new Integer(125);
+        new Thread(new MyThreadPrinter3("A")).start();
         Thread.sleep(10);
-        new Thread(new MyThreadPrinter3(i)).start();
+        new Thread(new MyThreadPrinter3("B")).start();
     }
 }
