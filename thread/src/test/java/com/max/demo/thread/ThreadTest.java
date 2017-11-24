@@ -18,7 +18,7 @@ public class ThreadTest extends ThreadApplicationTests {
     }
 
     public void PrimeProducerTest() {
-        PrimeProducer primeProducer = new PrimeProducer();
-
+       /* PrimeProducer primeProducer = new PrimeProducer();
+*/
     }
 }
