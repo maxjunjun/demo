@@ -50,8 +50,6 @@ public class MyThreadPrinter2 implements Runnable {
         MyThreadPrinter2 pa = new MyThreadPrinter2("A", c, a);
         MyThreadPrinter2 pb = new MyThreadPrinter2("B", a, b);
         MyThreadPrinter2 pc = new MyThreadPrinter2("C", b, c);
-
-
         new Thread(pa).start();
         Thread.sleep(1);  //确保按顺序A、B、C执行
         new Thread(pb).start();

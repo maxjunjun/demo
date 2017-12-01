@@ -1,5 +1,8 @@
 package com.max.demo.thread;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by hanzhongao on 2017/11/24.
  */
@@ -48,6 +51,7 @@ public class MyThreadPrinter3 implements Runnable {
         Integer i = new Integer(125);
         new Thread(new MyThreadPrinter3("A")).start();
         Thread.sleep(10);
+        Set<Integer> a = new HashSet<>();
         new Thread(new MyThreadPrinter3("B")).start();
     }
 }
