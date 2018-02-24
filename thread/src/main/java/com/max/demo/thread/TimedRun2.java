@@ -3,14 +3,14 @@ package com.max.demo.thread;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 import static com.max.demo.thread.LaunderThrowable.launderThrowable;
 
 /**
  * Created by max on 2017/11/1.
  */
 public class TimedRun2 {
-    private static final ScheduledExecutorService cancelExec =  Executors.newScheduledThreadPool(1);
-
+    private static final ScheduledExecutorService cancelExec = Executors.newScheduledThreadPool(1);
 
 
     public static void timedRun(final Runnable r,
@@ -23,6 +23,7 @@ public class TimedRun2 {
                 try {
                     r.run();
                 } catch (Throwable t) {
+                    System.out.println("退出");
                     //中断策略，保存当前抛出的异常，退出
                     this.t = t;
                 }
@@ -50,5 +51,17 @@ public class TimedRun2 {
         taskThread.join(unit.toMillis(timeout));
         //尝试抛出task在执行中抛出到异常
         task.rethrow();
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        TimedRun2.timedRun(new Runnable() {
+            @Override
+            public void run() {
+                while (!Thread.currentThread().isInterrupted()) {
+                    //System.out.println(1111);
+                }
+
+            }
+        },1,TimeUnit.SECONDS);
     }
 }

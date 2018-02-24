@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atme8.vip.dao.CourseDao" >
+  <resultMap id="BaseResultMap" type="com.atme8.vip.provider.dto.CourseDto" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="resource_id" property="resourceId" jdbcType="VARCHAR" />
+    <result column="resource_type" property="resourceType" jdbcType="VARCHAR" />
+    <result column="course_id" property="courseId" jdbcType="VARCHAR" />
+    <result column="course_logo" property="courseLogo" jdbcType="VARCHAR" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="course_introduction" property="courseIntroduction" jdbcType="VARCHAR" />
+    <result column="workshop_id" property="workshopId" jdbcType="VARCHAR" />
+    <result column="workshop_name" property="workshopName" jdbcType="VARCHAR" />
+    <result column="collection" property="collection" jdbcType="INTEGER" />
+    <result column="unique_visitor" property="uniqueVisitor" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="del_flg" property="delFlg" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, resource_id, resource_type, course_id, course_logo, course_name,course_introduction,
+     workshop_id, workshop_name, DATE_FORMAT(time,'%Y-%m-%d') time, DATE_FORMAT(create_time,'%Y-%m-%d') createTime,
+    collection, ifnull(unique_visitor,0) uniqueVisitor, period,del_flg,type,url,product_id
+  </sql>
+  <select id="getCourse" resultMap="BaseResultMap" parameterType="com.atme8.vip.provider.dto.CourseDto">
+    select 
+    <include refid="Base_Column_List" />
+    from t_vip_classes
+    where id = #{id,jdbcType=INTEGER} and del_flg = 0
+  </select>
+
+  <insert id="insertCourse" parameterType="com.atme8.vip.provider.dto.CourseDto" useGeneratedKeys="true" keyProperty="id">
+    insert into t_vip_classes
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="resourceId != null" >
+        resource_id,
+      </if>
+      <if test="resourceType != null" >
+        resource_type,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="courseLogo != null" >
+        course_logo,
+      </if>
+      <if test="courseName != null" >
+        course_name,
+      </if>
+      <if test="courseIntroduction != null" >
+        course_introduction,
+      </if>
+      <if test="workshopId != null" >
+        workshop_id,
+      </if>
+      <if test="workshopName != null" >
+        workshop_name,
+      </if>
+      <if test="collection != null" >
+        collection,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="delFlg != null" >
+        del_flg,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="uniqueVisitor != null" >
+        unique_visitor,
+      </if>
+      <if test="productId != null" >
+        product_id
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null" >
+        #{resourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseLogo != null" >
+        #{courseLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseIntroduction != null" >
+        #{courseIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="workshopId != null" >
+        #{workshopId,jdbcType=VARCHAR},
+      </if>
+      <if test="workshopName != null" >
+        #{workshopName,jdbcType=VARCHAR},
+      </if>
+      <if test="collection != null" >
+        #{collection,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlg != null" >
+        #{delFlg,jdbcType=INTEGER},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime, jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="uniqueVisitor != null" >
+        #{uniqueVisitor,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateCourse" parameterType="com.atme8.vip.provider.dto.CourseDto" >
+    update t_vip_classes
+    <set >
+      <if test="resourceId!=null and resourceId!=''">
+        resource_id=#{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType!=null and resourceType!=''">
+        resource_type=#{resourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId!=null and courseId!=''">
+        course_id=#{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseLogo!=null and courseLogo!=''">
+        course_logo=#{courseLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="courseName!=null and courseName!=''">
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseIntroduction!=null and courseIntroduction!=''">
+        course_introduction=#{courseIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="workshopId!=null and workshopId!=''">
+        workshop_id=#{workshopId,jdbcType=VARCHAR},
+      </if>
+      <if test="workshopName!=null and workshopName!=''">
+        workshop_name=#{workshopName,jdbcType=VARCHAR},
+      </if>
+      <if test="collection!=null and collection!=''">
+        collection=#{collection,jdbcType=INTEGER},
+      </if>
+      <if test="period!=null and period!=''">
+        period =#{period,jdbcType=INTEGER},
+      </if>
+      <if test="delFlg!=null and delFlg!=''">
+        del_flg =#{delFlg,jdbcType=INTEGER},
+      </if>
+      <if test="time!=null and time!=''">
+        time = #{time, jdbcType=TIMESTAMP},
+      </if>
+      <if test="type!=null and type!=''">
+        type =#{type,jdbcType=VARCHAR},
+      </if>
+      <if test="url!=null and url!=''">
+        url =#{url,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime!=null and createTime!=''">
+        create_time = #{createTime, jdbcType=TIMESTAMP},
+      </if>
+      <if test="uniqueVisitor!=null and uniqueVisitor!=''">
+        unique_visitor = #{uniqueVisitor,jdbcType=INTEGER},
+      </if>
+      <if test="productId!=null and productId!=''">
+        product_id = #{productId,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER} and del_flg = 0
+  </update>
+
+  <update id="updateUV" >
+    update t_vip_classes
+    set  unique_visitor = ifnull(unique_visitor,0) + 1
+    where id = #{id,jdbcType=INTEGER} and del_flg = 0
+  </update>
+
+  <update id="updatePV" >
+    update t_vip_classes
+    set  page_view = ifnull(page_view,0) + 1
+    where id = #{id,jdbcType=INTEGER} and del_flg = 0
+  </update>
+
+  <select id="listSelectPage" parameterType="com.atme8.vip.provider.dto.CourseDto" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_vip_classes
+    where
+      del_flg = 0
+      <if test="courseName != null and courseName != ''">
+        and course_name like CONCAT('%','${courseName}','%' )
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and time &gt;= #{startTime, jdbcType=TIMESTAMP}
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and time &lt;= #{endTime, jdbcType=TIMESTAMP}
+      </if>
+
+    ORDER BY ${param} DESC
+    limit #{offset},#{pageSize}
+  </select>
+
+  <select id="getPageCount" parameterType="com.atme8.vip.provider.dto.CourseDto" resultType="java.lang.Integer">
+    select
+    count(*)
+    from t_vip_classes
+    where
+    del_flg = 0
+      <if test="courseName != null and courseName != ''">
+        and course_name like CONCAT('%','${courseName}','%' )
+      </if>
+      <if test="startTime != null and startTime != ''">
+        and time &gt;= #{startTime, jdbcType=TIMESTAMP}
+      </if>
+      <if test="endTime != null and endTime != ''">
+        and time &lt;= #{endTime, jdbcType=TIMESTAMP}
+      </if>
+  </select>
+
+  <select id="list" parameterType="com.atme8.vip.provider.dto.CourseDto" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_vip_classes
+    where
+    del_flg = 0
+    and resource_id=#{resourceId,jdbcType=VARCHAR}
+    ORDER BY unique_visitor DESC
+  </select>
+
+  <select id="checkCourse" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select
+    count(*)
+    from t_vip_classes
+    where
+    del_flg = 0
+    and course_id=#{courseId,jdbcType=VARCHAR}
+  </select>
+
+  <update id="updateCollection" parameterType="java.lang.String" >
+    update t_vip_classes
+    <set >collection = IFNULL(collection,0) + 1</set>
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="cannelUpdateCollection" parameterType="java.lang.String" >
+    update t_vip_classes
+    <set >collection = IFNULL(collection,1) - 1</set>
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+</mapper>
